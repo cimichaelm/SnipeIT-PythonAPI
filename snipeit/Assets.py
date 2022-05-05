@@ -395,7 +395,8 @@ class Assets(object):
         self.server = server + self.uri
         headers = {'Content-Type': 'application/json','Authorization': 'Bearer {0}'.format(token)}
         results = requests.patch(self.server, headers=headers, data=payload)
-        jsonData = json.loads(results.content)
+        # interpret result as json and provide a dict()
+        jsonData = results.json()
         return jsonData['status']
 
     def checkInAsset(self, server, token, assetID, note=None, locationID=None):
